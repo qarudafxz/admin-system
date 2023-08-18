@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fade-in {
+ animation: fade-in 3s ease-in;
+}
+
+.active {
+ background-color: #FFF;
+ color:#3910C7;
+ transition: background-color 0.20s ease-in-out, color 0.45s ease;
+}
