@@ -1,7 +1,7 @@
 import React from "react"
 import { CiMoneyBill } from "react-icons/ci"
 
-export const TotalEarnings = () => {
+export const TotalEarnings: React.FC = () => {
   return (
     <div className="w-full mt-2 text-white rounded-xl bg-primary border border-purple-400 shadow-md px-4 pt-4">
       <div className="flex flex-col gap-4">
