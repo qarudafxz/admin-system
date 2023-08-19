@@ -27,6 +27,9 @@ export default {
       textColor: {
         primary: "#3910C7",
       },
+      borderColor: {
+        primary: "#3910C7",
+      },
     },
   },
   plugins: [],

@@ -23,7 +23,7 @@ export const User: React.FC = () => {
     },
     {
       title: "Display Users",
-      link: "/display-user",
+      link: "/display-user/admins",
     },
   ]
   return (

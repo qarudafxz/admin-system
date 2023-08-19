@@ -54,7 +54,7 @@ export const CreateUser: React.FC = () => {
       return
     }
 
-    const response = await fetch(import.meta.env.VITE_ADMIN_CREATE_USER, {
+    await fetch(import.meta.env.VITE_ADMIN_CREATE_USER, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,8 +71,6 @@ export const CreateUser: React.FC = () => {
       }),
     })
 
-    const data = await response.json()
-    console.log(data)
     toast.success(
       `${
         role.charAt(0).toUpperCase() + role.slice(1, role.length)
@@ -96,7 +94,7 @@ export const CreateUser: React.FC = () => {
       <ToastContainer />
       <div className="small:mx-small medium:mx-medium large:mx-large">
         <Navbar />
-        <form className="mt-5 max-h-[420px] overflow-y-auto">
+        <form className="mt-5 mb-28">
           <h1 className="font-bold small:text-xl">Create User</h1>
           <div className="flex flex-col gap-2 mt-4">
             <label className="small:text-xs">COMPLETE NAME</label>

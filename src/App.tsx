@@ -7,7 +7,9 @@ import { User } from "./pages/User"
 import { StickyFooterNavbar } from "./components/StickyFooterNavbar"
 import { CreateUser } from "./components/User/CreateUser"
 
-import { Abled } from "./components/User/status/Abled"
+import { Admins } from "./components/User/variations/Admins"
+import { Agents } from "./components/User/variations/Agents"
+import { UserNav } from "./components/UserNav"
 
 function App() {
   return (
@@ -25,12 +27,17 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/user" element={<User />} />
                   <Route path="/create-user" element={<CreateUser />} />
+
                   <Route
                     path="/display-user/*"
                     element={
-                      <Routes>
-                        <Route path="/able" element={<Abled />} />
-                      </Routes>
+                      <div>
+                        <UserNav />
+                        <Routes>
+                          <Route path="/admins" element={<Admins />} />
+                          <Route path="/agents" element={<Agents />} />
+                        </Routes>
+                      </div>
                     }
                   />
                 </Routes>
