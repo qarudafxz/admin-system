@@ -18,7 +18,7 @@ export const TotalEarnings: React.FC<{
             <h1 className="text-primary text-xs">Total Earnings</h1>
           </div>
           {loading ? (
-            <Skeleton variant="text" width={"100%"} height={80} />
+            <Skeleton variant="text" width={"100%"} height={50} />
           ) : (
             <h1 className="font-bold text-primary text-center mt-1 small:text-4xl">
               ₱{annual}

@@ -66,10 +66,8 @@ export const Dashboard: React.FC = () => {
         {/* menu */}
         <div
           className={`mt-4 ${
-            active
-              ? "grid grid-cols-3 gap-2"
-              : "flex flex-col gap-2 max-h-64 overflow-y-auto"
-          }`}
+            active ? "grid grid-cols-3 gap-2" : "flex flex-col gap-2"
+          }  max-h-64 overflow-y-auto`}
         >
           {/* components */}
           {/* User */}

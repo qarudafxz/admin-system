@@ -6,7 +6,7 @@ export const StickyFooterNavbar: React.FC = () => {
   const navigate = useNavigate()
 
   return (
-    <footer className="w-full bg-primary rounded-t-xl shadow-xl fixed bottom-0">
+    <footer className="w-full bg-dark rounded-t-xl shadow-xl fixed bottom-0">
       <div className="flex justify-center">
         <button
           onClick={() => {
