@@ -17,7 +17,7 @@ const getRandomColor = (colors: Colors) => {
 
 export const Admins: React.FC = () => {
   const { data, loading } = useFetch<{ admins: User[] }>(
-    import.meta.env.VITE_ADMIN_CREATE_USER
+    import.meta.env.VITE_ADMIN_VIEW_USER
   )
 
   const colors: Colors = ["#FF6729", "#94FF29", "#29FFA1", "#29CBFF", "#B129FF"]
