@@ -1,22 +1,12 @@
-import { useCallback, useEffect, useState } from "react"
-import { useGetCreds as getCreds } from "./useGetCreds"
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react"
 
-const getAuthToken = (): string | null => {
-  const token = getCreds() || localStorage.getItem("token") || null
-
-  if (!token) {
-    return null
-  }
-
-  return token
-}
-
-export const useFetch = async <T>(
+export const useFetch = <T>(
   url: RequestInfo | URL,
   options?: RequestInit & { token?: string }
 ) => {
   if (!options?.token) {
-    options!.token = getAuthToken() || ""
+    options = { ...options, token: localStorage.getItem("token") || undefined }
   }
 
   const [status, setStatus] = useState<string | null>(null)
@@ -24,28 +14,34 @@ export const useFetch = async <T>(
   const [data, setData] = useState<T | null>(null)
   const [loading, setIsLoading] = useState<boolean>(true)
 
-  const fetchResponse = useCallback(async () => {
-    return await fetch(url, {
-      ...(options as Omit<typeof options, "token">),
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-        ...(options?.token ? { Authorization: `Bearer ${options.token}` } : {}),
-      },
-    })
-  }, [url, options])
-
   useEffect(() => {
     setIsLoading(true)
-    fetchResponse()
-      .then((res) => {
-        setStatus(res.statusText)
-        return res.json()
-      })
-      .then((data) => setData(data as T))
-      .catch((err) => setError(err))
-      .finally(() => setIsLoading(false))
-  }, [fetchResponse])
+
+    async function fetchData() {
+      try {
+        const response = await fetch(url, {
+          ...(options as Omit<typeof options, "token">),
+          headers: {
+            "Content-Type": "application/json",
+            ...options?.headers,
+            ...(options?.token
+              ? { Authorization: `Bearer ${options.token}` }
+              : {}),
+          },
+        })
+
+        setStatus(response.statusText)
+        const responseData = await response.json()
+        setData(responseData as T)
+      } catch (err) {
+        setError(err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   return { data, error, loading, status }
 }

@@ -1,4 +1,3 @@
-type Admin = {
- username: string,
- password: string
+declare global {
+  type Admin = object
 }

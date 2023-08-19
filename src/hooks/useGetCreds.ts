@@ -1,3 +1,5 @@
-export const useGetCreds = ():string | null => {
- return localStorage.getItem("admin");
+export const useGetCreds = (): string | null => {
+  const token = localStorage.getItem("token")
+
+  return token
 }

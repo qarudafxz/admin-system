@@ -1,7 +1,11 @@
 import React from "react"
 import { CiMoneyBill } from "react-icons/ci"
+import { Skeleton } from "@mui/material"
 
-export const TotalEarnings: React.FC = () => {
+export const TotalEarnings: React.FC<{
+  annual?: string
+  loading?: boolean
+}> = ({ annual, loading }) => {
   return (
     <div className="w-full mt-2 text-white rounded-xl bg-primary border border-purple-400 shadow-md px-4 pt-4">
       <div className="flex flex-col gap-4">
@@ -13,9 +17,13 @@ export const TotalEarnings: React.FC = () => {
           <div className="flex justify-between items-center">
             <h1 className="text-primary text-xs">Total Earnings</h1>
           </div>
-          <h1 className="font-bold text-primary text-center mt-1 small:text-4xl">
-            ₱5000
-          </h1>
+          {loading ? (
+            <Skeleton variant="text" width={"100%"} height={80} />
+          ) : (
+            <h1 className="font-bold text-primary text-center mt-1 small:text-4xl">
+              ₱{annual}
+            </h1>
+          )}
         </div>
       </div>
     </div>

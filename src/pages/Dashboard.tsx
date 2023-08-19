@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import { Navbar } from "../components/Navbar"
-import { StickyFooterNavbar } from "../components/StickyFooterNavbar"
 import { TotalEarnings } from "../components/TotalEarnings"
+import { useFetch } from "../hooks/useFetch.ts"
 
 //icons
 import { BsFillGrid1X2Fill } from "react-icons/bs"
@@ -11,9 +12,16 @@ import { HiRectangleStack, HiTrophy } from "react-icons/hi2"
 import { BiSolidUserAccount, BiSolidStar } from "react-icons/bi"
 import { MdStickyNote2 } from "react-icons/md"
 import { GiTakeMyMoney } from "react-icons/gi"
+import { useGetCreds } from "../hooks/useGetCreds"
 
 export const Dashboard: React.FC = () => {
+  const navigate = useNavigate()
+  const token = useGetCreds()
   const [active, setActive] = useState<number>(0)
+  const { data, loading } = useFetch<{
+    users: number | undefined
+    annual: string | undefined
+  }>(import.meta.env.VITE_ADMIN_DASHBOARD)
 
   const icons = [
     {
@@ -26,13 +34,17 @@ export const Dashboard: React.FC = () => {
 
   useEffect(() => {
     //check token to identify if user logged in
+    if (!token) {
+      navigate("/login")
+    }
   }, [])
+
   return (
     <div className="small:mx-small medium:mx-medium large:mx-large">
       <Navbar />
-      <div className="my-6">
+      <div className="mt-6 mb-10">
         <h1 className="font-extrabold small:text-xl">Dashboard</h1>
-        <TotalEarnings />
+        <TotalEarnings annual={data?.annual} loading={loading} />
         <div className="flex justify-between items-center mt-4">
           <h1 className="small:text-lg font-semibold">Menu</h1>
           <div className="bg-zinc-200 flex gap-3 items-center p-2 rounded-full">
@@ -54,7 +66,9 @@ export const Dashboard: React.FC = () => {
         {/* menu */}
         <div
           className={`mt-4 ${
-            active ? "grid grid-cols-3 gap-2" : "flex flex-col gap-2"
+            active
+              ? "grid grid-cols-3 gap-2"
+              : "flex flex-col gap-2 max-h-64 overflow-y-auto"
           }`}
         >
           {/* components */}
@@ -120,7 +134,6 @@ export const Dashboard: React.FC = () => {
             Hits
           </Link>
         </div>
-        <StickyFooterNavbar />
       </div>
     </div>
   )

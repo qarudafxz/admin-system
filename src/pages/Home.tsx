@@ -10,7 +10,7 @@ export const Home: React.FC = () => {
         overflow: "hidden",
       }}
     >
-      <form className="my-20">
+      <form className="my-10">
         <h1 className="font-extrabold text-center">
           SMALL <span className="text-primary">TOWN</span>
         </h1>
