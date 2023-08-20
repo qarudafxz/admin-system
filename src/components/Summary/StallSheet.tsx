@@ -2,12 +2,12 @@ import React from "react"
 
 import { Navbar } from "../Navbar"
 
-type StallSheetProps = {
-  agent_name: string
-  draw_time: Date
-  draw_date: Date
-  game_type: string
-}
+// type StallSheetProps = {
+//   agent_name: string
+//   draw_time: Date
+//   draw_date: Date
+//   game_type: string
+// }
 
 export const StallSheet: React.FC = () => {
   return (
