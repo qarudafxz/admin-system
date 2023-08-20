@@ -19,7 +19,9 @@ export const UserNav: React.FC = () => {
                 to={item.link}
                 className={({ isActive }) =>
                   "text-xl px-6 pb-2 " +
-                  (isActive ? "border-b-4 border-primary font-semibold" : "")
+                  (isActive
+                    ? "border-b-4 border-primary font-semibold bg-zinc-100 pt-2"
+                    : "")
                 }
               >
                 {item.name}

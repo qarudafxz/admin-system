@@ -11,6 +11,10 @@ import { Admins } from "./components/User/variations/Admins"
 import { Agents } from "./components/User/variations/Agents"
 import { UserNav } from "./components/UserNav"
 
+import { Summary } from "./pages/Summary"
+import { StallSheet } from "./components/Summary/StallSheet"
+import { StallSummary } from "./components/Summary/StallSummary"
+
 function App() {
   return (
     <Router>
@@ -39,6 +43,13 @@ function App() {
                         </Routes>
                       </div>
                     }
+                  />
+
+                  <Route path="/summary" element={<Summary />} />
+                  <Route path="/summary/stall-sheet" element={<StallSheet />} />
+                  <Route
+                    path="/summary/stall-summary"
+                    element={<StallSummary />}
                   />
                 </Routes>
                 <StickyFooterNavbar />
