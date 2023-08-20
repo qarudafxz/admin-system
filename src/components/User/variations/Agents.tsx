@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { User } from "../../../../types"
 
 import { useFetch } from "../../../hooks/useFetch"
-import { deactivateAcc } from "../../../helpers/deactivateAcc"
+import { accActivation } from "../../../helpers/accActivation"
 
 import { Skeleton } from "@mui/material"
 
@@ -77,7 +77,9 @@ export const Agents: React.FC = () => {
                           </div>
                         </div>
                         <button
-                          onClick={() => deactivateAcc(agent?.id)}
+                          onClick={() =>
+                            accActivation(agent?.id, agent?.status)
+                          }
                           className={`text-xs p-2 rounded-full text-white ${
                             agent?.status === 1 ? "bg-green-500" : "bg-red-500"
                           }`}
@@ -118,7 +120,7 @@ export const Agents: React.FC = () => {
                         </div>
                       </div>
                       <button
-                        onClick={() => deactivateAcc(agent?.id)}
+                        onClick={() => accActivation(agent?.id, agent?.status)}
                         className={`text-xs p-2 rounded-full text-white ${
                           agent?.status === 1 ? "bg-green-500" : "bg-red-500"
                         }`}

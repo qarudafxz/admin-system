@@ -5,7 +5,10 @@ import { useFetch } from "../../../hooks/useFetch"
 import { Skeleton } from "@mui/material"
 import { BiSolidUserPin } from "react-icons/bi"
 
-import { deactivateAcc } from "../../../helpers/deactivateAcc"
+import { accActivation } from "../../../helpers/accActivation"
+
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 type Colors = string[]
 
@@ -34,6 +37,7 @@ export const Admins: React.FC = () => {
 
   return (
     <div className="mt-4 mb-24">
+      <ToastContainer />
       <div className="small:mx-small medium:mx-medium large:mx-large">
         <div className="flex flex-col gap-2  max-h-[500px] overflow-y-auto">
           <input
@@ -72,7 +76,9 @@ export const Admins: React.FC = () => {
                           </div>
                         </div>
                         <button
-                          onClick={() => deactivateAcc(admin?.id)}
+                          onClick={() =>
+                            accActivation(admin?.id, admin?.status)
+                          }
                           className={`text-xs p-2 rounded-full text-white ${
                             admin?.status === 1 ? "bg-green-500" : "bg-red-500"
                           }`}
@@ -113,7 +119,9 @@ export const Admins: React.FC = () => {
                         </div>
                       </div>
                       <button
-                        onClick={() => deactivateAcc(admin?.id)}
+                        onClick={() => {
+                          accActivation(admin?.id, admin?.status)
+                        }}
                         className={`text-xs p-2 rounded-full text-white ${
                           admin?.status === 1 ? "bg-green-500" : "bg-red-500"
                         }`}
