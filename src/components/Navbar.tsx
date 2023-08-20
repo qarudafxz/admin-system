@@ -48,7 +48,13 @@ export const Navbar: React.FC = () => {
           {isOpenNav && (
             <motion.div
               initial={{ opacity: 0, x: -1000 }}
-              animate={{ opacity: 1, x: -100 }}
+              animate={{
+                opacity: 1,
+                x:
+                  window.innerWidth >= 250 && window.innerWidth < 320
+                    ? -70
+                    : -130,
+              }}
               exit={{ opacity: 0, x: -1000 }}
               transition={{ duration: 0.3 }}
               className="absolute top-0 z-10 right-0 bg-primary shadow-2xl px-8 py-4 h-full w-48"
