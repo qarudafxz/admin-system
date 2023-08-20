@@ -97,7 +97,7 @@ export const Dashboard: React.FC = () => {
             </Link>
             {/* Total Expenses */}
             <Link
-              to="/summary"
+              to="/expenses"
               className={`rounded-md p-2 border border-zinc-400 text-black font-bold text-[10px] ${
                 active
                   ? "flex flex-col gap-2"

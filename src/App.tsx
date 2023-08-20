@@ -15,6 +15,9 @@ import { Summary } from "./pages/Summary"
 import { StallSheet } from "./components/Summary/StallSheet"
 import { StallSummary } from "./components/Summary/StallSummary"
 
+import { Expenses } from "./pages/Expenses"
+import { RequestExpenses } from "./pages/RequestExpenses"
+
 function App() {
   return (
     <Router>
@@ -31,7 +34,8 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/user" element={<User />} />
                   <Route path="/create-user" element={<CreateUser />} />
-
+                  <Route path="/expenses" element={<Expenses />} />
+                  <Route path="/view-requests" element={<RequestExpenses />} />
                   <Route
                     path="/display-user/*"
                     element={
