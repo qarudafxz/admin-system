@@ -1,7 +1,7 @@
 import { deact } from "../utils/deact"
 import { toast } from "react-toastify"
 
-export const deactivateAcc = async (id: string) => {
+export const deactivateAcc = async (id: number) => {
   const token = localStorage.getItem("token")
   const response = await fetch(deact(id), {
     method: "DELETE",
