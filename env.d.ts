@@ -7,6 +7,8 @@ interface ImportMetaEnv {
   readonly VITE_ADMIN_VIEW_USER: string
   readonly VITE_ADMIN_LOGOUT: string
   readonly VITE_ADMIN_CREATE_EXPENSES: string
+  readonly VITE_ADMIN_VIEW_RESULT: string
+  readonly VITE_ADMIN_CREATE_RESULT: string
 }
 
 interface ImportMeta {

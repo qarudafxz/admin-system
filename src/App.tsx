@@ -18,6 +18,9 @@ import { StallSummary } from "./components/Summary/StallSummary"
 import { Expenses } from "./pages/Expenses"
 import { RequestExpenses } from "./pages/RequestExpenses"
 
+import { Result } from "./pages/Result"
+import { AddResult } from "./components/Result/AddResult"
+
 function App() {
   return (
     <Router>
@@ -36,6 +39,8 @@ function App() {
                   <Route path="/create-user" element={<CreateUser />} />
                   <Route path="/expenses" element={<Expenses />} />
                   <Route path="/view-requests" element={<RequestExpenses />} />
+                  <Route path="/result" element={<Result />} />
+                  <Route path="/add-result" element={<AddResult />} />
                   <Route
                     path="/display-user/*"
                     element={

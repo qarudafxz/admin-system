@@ -23,8 +23,8 @@ export const Navbar: React.FC = () => {
     })
       .then((res) => {
         if (res.ok || res.status === 200) {
-          localStorage.removeItem("token")
-          localStorage.removeItem("admin")
+          sessionStorage.removeItem("token")
+          sessionStorage.removeItem("admin")
 
           setTimeout(() => (window.location.href = "/"), 1000)
         }
@@ -50,14 +50,11 @@ export const Navbar: React.FC = () => {
               initial={{ opacity: 0, x: -1000 }}
               animate={{
                 opacity: 1,
-                x:
-                  window.innerWidth >= 250 && window.innerWidth < 320
-                    ? -70
-                    : -130,
+                x: -160,
               }}
               exit={{ opacity: 0, x: -1000 }}
               transition={{ duration: 0.3 }}
-              className="absolute top-0 z-10 right-0 bg-primary shadow-2xl px-8 py-4 h-full w-48"
+              className="absolute top-0 z-10 right-0 bg-primary shadow-2xl py-4 h-full w-9/12 small:pl-32 medium:pl-28 large:pl-24"
             >
               <div className="mt-20">
                 <button

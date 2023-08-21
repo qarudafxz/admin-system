@@ -1,5 +1,13 @@
 import React from "react"
 
+import { Navbar } from "../Navbar"
+
 export const AddResult: React.FC = () => {
-  return <div>AddResult</div>
+  return (
+    <div>
+      <div className="small:mx-small medium:mx-medium large:mx-large">
+        <Navbar />
+      </div>
+    </div>
+  )
 }
