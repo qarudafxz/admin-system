@@ -140,7 +140,7 @@ export const Result: React.FC = () => {
                         month: "long",
                         day: "numeric",
                       })}{" "}
-                    Results
+                    results
                   </h1>
                   <Dropdown
                     options={sortByOptions}
@@ -168,7 +168,7 @@ export const Result: React.FC = () => {
                           </span>
                         </h1>
                         <h1 className="text-xs flex items-center gap-1">
-                          <GiCash size={25} /> Prize :{" "}
+                          <GiCash size={25} className="text-primary" /> Prize :{" "}
                           <span className="font-semibold">{item?.prize}</span>
                         </h1>
                         <h1 className="text-xs flex items-center gap-1">
