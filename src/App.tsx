@@ -20,6 +20,7 @@ import { RequestExpenses } from "./pages/RequestExpenses"
 
 import { Result } from "./pages/Result"
 import { AddResult } from "./components/Result/AddResult"
+import { Hits } from "./pages/Hits"
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                   <Route path="/view-requests" element={<RequestExpenses />} />
                   <Route path="/result" element={<Result />} />
                   <Route path="/add-result" element={<AddResult />} />
+                  <Route path="/hits" element={<Hits />} />
                   <Route
                     path="/display-user/*"
                     element={

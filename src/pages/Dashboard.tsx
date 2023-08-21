@@ -121,7 +121,7 @@ export const Dashboard: React.FC = () => {
             Result
           </Link>
           <Link
-            to="/result"
+            to="/hits"
             className={`col-span-2 rounded-md p-2 border border-zinc-400 text-black font-bold text-[10px] ${
               active
                 ? "flex flex-col gap-2"

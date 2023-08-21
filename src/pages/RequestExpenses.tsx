@@ -27,7 +27,7 @@ export const RequestExpenses: React.FC = () => {
         <Navbar />
         <div className="mt-4">
           <h1 className="font-bold mb-4 small:text-xl">
-            Requests from other admin
+            Requests from other admins
           </h1>
           <div className="flex flex-col gap-2 max-h-[425px] mb-20 overflow-y-auto">
             {data?.map((req: RequestExpensesProps, idx: number) => (

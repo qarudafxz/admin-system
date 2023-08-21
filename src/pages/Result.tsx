@@ -7,12 +7,9 @@ import { useGetCreds } from "../hooks/useGetCreds"
 import "react-dropdown/style.css"
 import Dropdown from "react-dropdown"
 
-import { GiCash } from "react-icons/gi"
+import { gameOptions, sortByOptions } from "../helpers/options"
 
-type Options = {
-  value: string
-  label: string
-}
+import { GiCash } from "react-icons/gi"
 
 type Results = {
   id: number
@@ -48,32 +45,6 @@ export const Result: React.FC = () => {
       }
     })
   }
-
-  const gameOptions: Array<Options> = [
-    {
-      label: "2D",
-      value: "2d",
-    },
-    {
-      label: "3D",
-      value: "3d",
-    },
-    {
-      label: "4D",
-      value: "4d",
-    },
-  ]
-
-  const sortByOptions: Array<Options> = [
-    {
-      label: "Prize",
-      value: "prize",
-    },
-    {
-      label: "Time",
-      value: "time",
-    },
-  ]
 
   const sortResults = (sortBy: string): void => {
     if (sortBy === "prize") {
@@ -158,7 +129,8 @@ export const Result: React.FC = () => {
                       className="border border-zinc-400 p-2 rounded-md flex gap-4 items-center shadow-lg"
                     >
                       <h1 className="bg-primary text-white font-bold  p-2 rounded-md">
-                        {item?.game_type}
+                        {item?.game_type.charAt(0) +
+                          item?.game_type.charAt(1).toUpperCase()}
                       </h1>
                       <div className="flex flex-col">
                         <h1 className="text-xs">
