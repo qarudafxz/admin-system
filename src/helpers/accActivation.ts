@@ -1,8 +1,9 @@
 import { deact, react } from "../utils/activate"
 import { toast } from "react-toastify"
+import { useGetCreds as GetCreds } from "../hooks/useGetCreds"
 
 export const accActivation = async (id: number, status: number) => {
-  const token = localStorage.getItem("token")
+  const token = GetCreds()
   const response = await fetch(`${status === 1 ? deact(id) : react(id)}`, {
     method: "DELETE",
     headers: {

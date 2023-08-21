@@ -1,5 +1,5 @@
 export const useGetCreds = (): string | null => {
-  const token = localStorage.getItem("token")
+  const token = sessionStorage.getItem("token")
 
   return token
 }

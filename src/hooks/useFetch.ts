@@ -6,7 +6,10 @@ export const useFetch = <T>(
   options?: RequestInit & { token?: string }
 ) => {
   if (!options?.token) {
-    options = { ...options, token: localStorage.getItem("token") || undefined }
+    options = {
+      ...options,
+      token: sessionStorage.getItem("token") || undefined,
+    }
   }
 
   const [status, setStatus] = useState<string | null>(null)

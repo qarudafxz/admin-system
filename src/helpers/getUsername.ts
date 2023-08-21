@@ -1,5 +1,5 @@
 export const getUsername = (): string | null => {
-  const admin = JSON.parse(localStorage.getItem("admin") || "{}")
+  const admin = JSON.parse(sessionStorage.getItem("admin") || "{}")
 
   return admin.username
 }

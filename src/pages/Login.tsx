@@ -46,8 +46,8 @@ export const Login: React.FC = () => {
       setProgress(100)
     }, 1000)
 
-    localStorage.setItem("admin", JSON.stringify(credentials))
-    localStorage.setItem("token", data.token)
+    sessionStorage.setItem("admin", JSON.stringify(credentials))
+    sessionStorage.setItem("token", data.token)
 
     setTimeout(() => {
       navigate("/dashboard")
