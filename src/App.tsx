@@ -41,6 +41,7 @@ function App() {
                   <Route path="/expenses" element={<Expenses />} />
                   <Route path="/view-requests" element={<RequestExpenses />} />
                   <Route path="/result" element={<Result />} />
+
                   <Route path="/add-result" element={<AddResult />} />
                   <Route path="/hits" element={<Hits />} />
                   <Route
