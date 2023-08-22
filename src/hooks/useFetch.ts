@@ -1,6 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 export const useFetch = <T>(
   url: RequestInfo | URL,
   options?: RequestInit & { token?: string }
@@ -35,6 +38,19 @@ export const useFetch = <T>(
 
         setStatus(response.statusText)
         const responseData = await response.json()
+        if (!response.ok || response.status === 403) {
+          toast.error(responseData.message, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            theme: "light",
+          })
+        }
         setData(responseData as T)
       } catch (err) {
         setError(err)

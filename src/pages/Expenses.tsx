@@ -26,8 +26,25 @@ export const Expenses: React.FC = () => {
         message: requestExpense,
       }),
     }).then(async (res) => {
+      const data = await res.json()
+      setProgress(60)
       if (res.ok || res.status === 200) {
         toast.success("Request sent", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        })
+        setProgress(100)
+      }
+
+      if (res.status === 403 || !res.status) {
+        toast.error(data.message, {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: false,

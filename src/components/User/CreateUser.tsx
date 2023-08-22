@@ -69,24 +69,42 @@ export const CreateUser: React.FC = () => {
         location: area,
         role: role,
       }),
-    })
+    }).then(async (res) => {
+      const data = await res.json()
 
-    toast.success(
-      `${
-        role.charAt(0).toUpperCase() + role.slice(1, role.length)
-      } successfully added`,
-      {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        rtl: false,
-        pauseOnFocusLoss: true,
-        draggable: true,
-        pauseOnHover: true,
-        theme: "light",
+      if (res.ok || res.status === 200) {
+        toast.success(
+          `${
+            role.charAt(0).toUpperCase() + role.slice(1, role.length)
+          } successfully added`,
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            theme: "light",
+          }
+        )
       }
-    )
+
+      if (!res.ok || res.status === 403) {
+        toast.error(data.message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        })
+      }
+    })
   }
 
   return (

@@ -1,19 +1,14 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-
 import { Navbar } from "../components/Navbar"
-
 import { useGetCreds } from "../hooks/useGetCreds"
-
 import "react-dropdown/style.css"
 import Dropdown from "react-dropdown"
-
 import { gameOptions, sortByOptions } from "../helpers/options"
-
 import { GiCash } from "react-icons/gi"
-
 import { Results } from "../../types"
-
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 export const Result: React.FC = () => {
   const token = useGetCreds()
   const [gameType, setGameType] = useState<string>("")
@@ -32,10 +27,23 @@ export const Result: React.FC = () => {
         draw_date: drawDate,
       }),
     }).then(async (res) => {
+      const data = await res.json()
       if (res.status === 200 || res.ok) {
-        const data = await res.json()
-
         setResults(data)
+      }
+
+      if (res.status === 403 || !res.ok) {
+        toast.error(data.message, {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        })
       }
     })
   }
@@ -78,6 +86,7 @@ export const Result: React.FC = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="small:mx-small medium:mx-medium large:mx-large">
         <Navbar />
         <div className="mt-5 flex flex-col gap2">

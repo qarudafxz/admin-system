@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { Navbar } from "../components/Navbar"
 import Dropdown from "react-dropdown"
 import { useGetCreds } from "../hooks/useGetCreds"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 type HitsProps = {
   agent_name: string
@@ -46,6 +48,21 @@ export const Hits: React.FC = () => {
         setResults(data)
         setCurrentPage(1) // Reset to first page after fetching new results
       }
+
+      if (!res.ok) {
+        const data = await res.json()
+        toast.error(data.message, {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        })
+      }
     } catch (error) {
       console.error("Error fetching data:", error)
     }
@@ -75,6 +92,7 @@ export const Hits: React.FC = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="small:mx-small medium:mx-medium large:mx-large">
         <Navbar />
         <div className="mt-5">

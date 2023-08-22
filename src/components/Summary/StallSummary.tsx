@@ -3,6 +3,9 @@ import React, { useState } from "react"
 import { Navbar } from "../Navbar"
 import { useGetCreds } from "../../hooks/useGetCreds"
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 type StallSummaryProps = {
   anent_id: number
   agent_name: string
@@ -30,21 +33,35 @@ export const StallSummary: React.FC = () => {
       },
       body: JSON.stringify({ start_date: startDate, end_date: endDate }),
     }).then(async (res) => {
+      const data = await res.json()
       if (res.ok || res.status === 200) {
-        const data = await res.json()
-        console.log(data)
         setData(data)
+      }
+
+      if (res.status === 403 || !res.ok) {
+        toast.error(data.message, {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        })
       }
     })
   }
 
   return (
     <div>
+      <ToastContainer />
       <div className="small:mx-small medium:mx-medium large:mx-large">
         <Navbar />
         <div className="mt-5">
-          <h1 className="font-bold small:text-xl">Stall Sheet</h1>
-          <div className="flex flex-row gap-2 text-xs justify-between w-full">
+          <h1 className="font-bold small:text-xl">Stall Summary</h1>
+          <div className="flex flex-row gap-2 text-xs justify-between mt-4 w-full">
             <div className="flex flex-col gap-2 bg-zinc-300 text-center pt-2">
               <h1>Start Date</h1>
               <input

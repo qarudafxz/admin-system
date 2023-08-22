@@ -41,6 +41,7 @@ export const AddResult: React.FC = () => {
         draw_time: time,
       }),
     }).then(async (res) => {
+      const data = await res.json()
       if (res.status === 200 || res.ok) {
         setProgress(100)
         toast.success("Result added successfully", {
@@ -55,6 +56,21 @@ export const AddResult: React.FC = () => {
           theme: "light",
         })
 
+        if (!res.ok || res.status === 403) {
+          setProgress(100)
+          toast.error(data.message, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            theme: "light",
+          })
+          return
+        }
         setIsAdd(false)
       }
     })
