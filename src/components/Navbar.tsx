@@ -7,13 +7,16 @@ import { BiSolidUserCircle } from "react-icons/bi"
 import { VscSettings } from "react-icons/vsc"
 
 import { useGetCreds } from "../hooks/useGetCreds.ts"
+import TopLoadingBar from "react-top-loading-bar"
 
 export const Navbar: React.FC = () => {
+  const [progress, setProgress] = useState<number>(0)
   const token = useGetCreds()
   const [isOpenNav, setOpenNav] = useState<boolean>(false)
   const username = getUsername()
 
   const handleLogout = async () => {
+    setProgress(30)
     await fetch(import.meta.env.VITE_ADMIN_LOGOUT, {
       method: "DELETE",
       headers: {
@@ -25,7 +28,7 @@ export const Navbar: React.FC = () => {
         if (res.ok || res.status === 200) {
           sessionStorage.removeItem("token")
           sessionStorage.removeItem("admin")
-
+          setProgress(100)
           setTimeout(() => (window.location.href = "/"), 1000)
         }
       })
@@ -36,6 +39,12 @@ export const Navbar: React.FC = () => {
 
   return (
     <div className="flex justify-between items-center mt-4 ">
+      <TopLoadingBar
+        color="#3910C7"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+        height={8}
+      />
       <div className="flex gap-4">
         <button type="button" onClick={() => setOpenNav(!isOpenNav)}>
           <BiSolidUserCircle
