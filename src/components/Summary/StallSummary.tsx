@@ -32,6 +32,7 @@ export const StallSummary: React.FC = () => {
     }).then(async (res) => {
       if (res.ok || res.status === 200) {
         const data = await res.json()
+        console.log(data)
         setData(data)
       }
     })
@@ -67,15 +68,50 @@ export const StallSummary: React.FC = () => {
           >
             Check Summary
           </button>
-          <div className="grid grid-cols-2">
-            {data.map((item, idx) => {
-              return (
-                <div key={idx}>
-                  <h1>{item?.agent_name}</h1>
-                </div>
-              )
-            })}
-          </div>
+          <table className="w-full border border-collapse mt-4 max-h-96 mb-24 overflow-y-auto">
+            <thead className="text-[10px] rounded-t-md">
+              <tr>
+                <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                  Agent
+                </th>
+                <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                  Gross
+                </th>
+                <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                  Hits
+                </th>
+                <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                  Expenses
+                </th>
+                <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                  Net
+                </th>
+              </tr>
+            </thead>
+            <tbody className="text-[6px]">
+              {data.map((item: any, idx: number) => (
+                <tr
+                  key={idx}
+                  className={`border-t ${idx % 2 === 1 ? "bg-zinc-300" : ""}`}
+                >
+                  <td className="flex flex-col px-2 py-2 border border-zinc-400">
+                    <span className="font-semibold">{item?.agent_name}</span>
+                    <span>{item?.location}</span>
+                  </td>
+                  <td className="px-2 py-2 border border-zinc-400">
+                    {item?.gross}
+                  </td>
+                  <td className="px-2 py-2 border border-zinc-400">
+                    {item?.hits}
+                  </td>
+                  <td className="px-2 py-2 border border-zinc-400"></td>
+                  <td className="px-2 py-2 border border-zinc-400">
+                    {item?.net}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
