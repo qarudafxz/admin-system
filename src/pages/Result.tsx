@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { Navbar } from "../components/Navbar"
 
 import { useGetCreds } from "../hooks/useGetCreds"
+
 import "react-dropdown/style.css"
 import Dropdown from "react-dropdown"
 
@@ -11,14 +12,7 @@ import { gameOptions, sortByOptions } from "../helpers/options"
 
 import { GiCash } from "react-icons/gi"
 
-type Results = {
-  id: number
-  game_type: string
-  winning_combination: string
-  prize: number
-  draw_date: string
-  draw_time: string
-}
+import { Results } from "../../types"
 
 export const Result: React.FC = () => {
   const token = useGetCreds()
@@ -60,6 +54,26 @@ export const Result: React.FC = () => {
     }
 
     setResults([...results])
+  }
+
+  const formatMilitaryToNon12Hour = (militaryTime: string) => {
+    //the map returns a new array, therefore the initialized destructured array's values are [21, 0];
+    const [hour, minute] = militaryTime.split(":").map(Number)
+
+    /*in this manner, the values 12 and 9 are not mutated but converted into locale time respectively by 
+      the properties hour, minute, and hour12
+    */
+    const formattedTime = new Date(0, 0, 0, hour, minute).toLocaleTimeString(
+      "en-US",
+      {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      }
+    )
+
+    //now it returns 9:00 PM
+    return formattedTime
   }
 
   return (
@@ -146,7 +160,7 @@ export const Result: React.FC = () => {
                         <h1 className="text-xs flex items-center gap-1">
                           Draw Time :{" "}
                           <span className="font-semibold">
-                            {item?.draw_time.slice(0, 5)}
+                            {formatMilitaryToNon12Hour(item?.draw_time)}
                           </span>
                         </h1>
                       </div>

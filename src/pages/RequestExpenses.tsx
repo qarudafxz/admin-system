@@ -29,7 +29,7 @@ export const RequestExpenses: React.FC = () => {
           <h1 className="font-bold mb-4 small:text-xl">
             Requests from other admins
           </h1>
-          <div className="flex flex-col gap-2 max-h-[425px] mb-20 overflow-y-auto">
+          <div className="flex flex-col gap-2 max-h-[550px] mb-20 overflow-y-auto">
             {data?.map((req: RequestExpensesProps, idx: number) => (
               <div key={idx} className="flex gap-2 items-center">
                 {loading ? (

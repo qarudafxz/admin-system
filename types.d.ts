@@ -20,3 +20,12 @@ export type User = {
   admins: UserType[]
   agents: UserType[]
 }
+
+export type Results = {
+  id: number
+  game_type: string
+  winning_combination: string
+  prize: number
+  draw_date: string
+  draw_time: string
+}
