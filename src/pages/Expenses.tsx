@@ -5,15 +5,18 @@ import { Navbar } from "../components/Navbar"
 
 import { VscGitPullRequestGoToChanges } from "react-icons/vsc"
 import { useGetCreds } from "../hooks/useGetCreds"
+import { ToastContainer, toast } from "react-toastify"
+import TopLoadingBar from "react-top-loading-bar"
 
 export const Expenses: React.FC = () => {
   const token = useGetCreds()
   const [requestExpense, setRequestExpense] = useState<string>("")
+  const [progress, setProgress] = useState<number>(0)
 
   const handleRequest = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    const res = await fetch(import.meta.env.VITE_ADMIN_CREATE_EXPENSES, {
+    setProgress(30)
+    await fetch(import.meta.env.VITE_ADMIN_CREATE_EXPENSES, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,15 +25,33 @@ export const Expenses: React.FC = () => {
       body: JSON.stringify({
         message: requestExpense,
       }),
+    }).then(async (res) => {
+      if (res.ok || res.status === 200) {
+        toast.success("Request sent", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        })
+        setProgress(100)
+      }
     })
-
-    const data = await res.json()
-
-    console.log(data)
   }
 
   return (
     <div>
+      <TopLoadingBar
+        color="#3910C7"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+        height={8}
+      />
+      <ToastContainer />
       <div className="small:mx-small medium:mx-medium large:mx-large">
         <Navbar />
         <div className="mt-5 flex flex-col gap-2">

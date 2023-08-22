@@ -83,7 +83,7 @@ export const Hits: React.FC = () => {
           <input
             type="date"
             onChange={(e) => setDrawDate(e.target.value)}
-            className="w-full border border-zinc-500 mt-2"
+            className="w-full border border-zinc-500 mt-2 text-xs"
           />
           <div className="flex gap-2 items-center">
             <Dropdown
