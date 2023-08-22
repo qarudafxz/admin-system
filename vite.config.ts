@@ -11,32 +11,36 @@ export default defineConfig({
       devOptions: {
         enabled: false,
       },
-      includeAssets: ["android.png"],
       manifest: {
         name: "Admin",
+        display: "standalone",
         short_name: "Admin",
         description: "Admin/Agent Management System",
-        theme_color: "#00041E",
+        theme_color: "#3910C7",
         background_color: "#00041E",
         start_url: "/",
         icons: [
           {
-            src: "/android-launchericon-96-96.png",
-            sizes: "96x96",
-            type: "image/png",
-          },
-          {
-            src: "/android-launchericon-192-192.png",
+            src: "./public/icon-192x192.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "/android-launchericon-512-512.png",
+            src: "./public/icon-512x512.png",
+            sizes: "256x256",
+            type: "image/png",
+          },
+          {
+            src: "./public/icon-384x384.png",
+            sizes: "384x384",
+            type: "image/png",
+          },
+          {
+            src: "./public/icon-512x512.png",
             sizes: "512x512",
             type: "image/png",
           },
         ],
-        display: "standalone",
       },
     }),
   ],
