@@ -13,7 +13,7 @@ export default {
       backgroundColor: {
         light: "#FFF",
         dark: "#080808",
-        primary: "#3910C7",
+        primary: "#4e73df",
       },
       margin: {
         small: "9px",
@@ -25,10 +25,10 @@ export default {
         main: ["Poppins", "sans-serif"],
       },
       textColor: {
-        primary: "#3910C7",
+        primary: "#4e73df",
       },
       borderColor: {
-        primary: "#3910C7",
+        primary: "#4e73df",
       },
     },
   },

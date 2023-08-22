@@ -5,6 +5,7 @@ import { getUsername } from "../helpers/getUsername.ts"
 
 import { BiSolidUserCircle } from "react-icons/bi"
 import { VscSettings } from "react-icons/vsc"
+import { CiLogout } from "react-icons/ci"
 
 import { useGetCreds } from "../hooks/useGetCreds.ts"
 import TopLoadingBar from "react-top-loading-bar"
@@ -68,8 +69,9 @@ export const Navbar: React.FC = () => {
               <div className="mt-20">
                 <button
                   onClick={handleLogout}
-                  className="text-white font-semibold"
+                  className="text-white flex w-full items-center gap-2 font-semibold"
                 >
+                  <CiLogout size={20} />
                   Logout
                 </button>
               </div>

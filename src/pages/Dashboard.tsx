@@ -51,7 +51,7 @@ export const Dashboard: React.FC = () => {
             {icons.map((icon, idx) => (
               <button
                 onClick={() => setActive(idx)}
-                className={`${
+                className={` ${
                   active === idx
                     ? "p-2 shadow-md rounded-full active"
                     : "bg-zinc-200 text-zinc-500"
