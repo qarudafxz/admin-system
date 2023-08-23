@@ -24,7 +24,7 @@ export const StallSheet: React.FC = () => {
   )
 
   const agents: Agent[] | undefined = data?.agents.map((agent) => {
-    return { label: agent.username, value: agent.username.toString() }
+    return { label: agent.username, value: agent.id.toString() }
   })
 
   const handleStallSheet = async (e: React.FormEvent) => {
@@ -37,7 +37,7 @@ export const StallSheet: React.FC = () => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        agent_name: agent,
+        agent_id: agent,
         draw_time: drawTime,
         draw_date: date,
         game_type: gameType,
