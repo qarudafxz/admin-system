@@ -21,6 +21,8 @@ import { RequestExpenses } from "./pages/RequestExpenses"
 import { Result } from "./pages/Result"
 import { AddResult } from "./components/Result/AddResult"
 import { Hits } from "./pages/Hits"
+import { Limit } from "./pages/Limit"
+import { CheckLimit } from "./pages/CheckLimit"
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
                   <Route path="/expenses" element={<Expenses />} />
                   <Route path="/view-requests" element={<RequestExpenses />} />
                   <Route path="/result" element={<Result />} />
+                  <Route path="/limits" element={<Limit />} />
+                  <Route path="/check-limit" element={<CheckLimit />} />
 
                   <Route path="/add-result" element={<AddResult />} />
                   <Route path="/hits" element={<Hits />} />

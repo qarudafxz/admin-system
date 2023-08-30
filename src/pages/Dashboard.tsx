@@ -12,6 +12,7 @@ import { HiRectangleStack, HiTrophy } from "react-icons/hi2"
 import { BiSolidUserAccount, BiSolidStar } from "react-icons/bi"
 import { MdStickyNote2 } from "react-icons/md"
 import { GiTakeMyMoney } from "react-icons/gi"
+import { AiOutlineStop } from "react-icons/ai"
 import { useGetCreds } from "../hooks/useGetCreds"
 
 export const Dashboard: React.FC = () => {
@@ -130,6 +131,17 @@ export const Dashboard: React.FC = () => {
           >
             <BiSolidStar className="text-4xl bg-primary p-2 rounded-full text-white shadow-xl" />
             Hits
+          </Link>
+          <Link
+            to="/limits"
+            className={`col-span-3 rounded-md p-2 border border-zinc-400 text-black font-bold text-[10px] ${
+              active
+                ? "flex flex-col gap-2"
+                : "flex flex-row gap-4 items-center"
+            }`}
+          >
+            <AiOutlineStop className="text-4xl bg-primary p-2 rounded-full text-white shadow-xl" />
+            Limits
           </Link>
         </div>
       </div>

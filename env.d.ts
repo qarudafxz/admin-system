@@ -12,6 +12,8 @@ interface ImportMetaEnv {
   readonly VITE_ADMIN_VIEW_STALL_SHEET: string
   readonly VITE_ADMIN_VIEW_STALL_SUMMARY: string
   readonly VITE_ADMIN_VIEW_HITS: string
+  readonly VITE_ADMIN_ADD_LIMIT: string
+  readonly VITE_ADMIN_VIEW_LIMIT: string
 }
 
 interface ImportMeta {

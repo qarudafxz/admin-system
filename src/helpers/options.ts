@@ -5,16 +5,16 @@ type Options = {
 
 export const gameOptions: Array<Options> = [
   {
-    label: "2D",
-    value: "2d",
+    label: "S2",
+    value: "S2",
   },
   {
-    label: "3D",
-    value: "3d",
+    label: "S3",
+    value: "S3",
   },
   {
-    label: "4D",
-    value: "4d",
+    label: "S4",
+    value: "S4",
   },
 ]
 

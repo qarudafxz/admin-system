@@ -5,3 +5,7 @@ export const deact = (id: number): string => {
 export const react = (id: number): string => {
   return `https://adminstl.up.railway.app/api/Admin/User/${id}/restore`
 }
+
+export const deleteLim = (id: number): string => {
+  return `https://adminstl.up.railway.app/api/Admin/Limits/${id}`
+}
