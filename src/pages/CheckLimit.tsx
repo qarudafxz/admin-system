@@ -40,6 +40,9 @@ export const CheckLimit: FC = () => {
             pauseOnHover: true,
             theme: "light",
           })
+          setTimeout(() => {
+            window.location.reload()
+          }, 2100)
           return
         }
       })
@@ -113,7 +116,7 @@ export const CheckLimit: FC = () => {
                   </td>
                   <td className="px-2 py-2 border border-zinc-400">
                     <button
-                      onClick={() => handleDelete(item?.limit_id)}
+                      onClick={() => handleDelete(item?.id)}
                       className="bg-red-600 px-2 py-1 rounded-full text-white"
                     >
                       Delete
