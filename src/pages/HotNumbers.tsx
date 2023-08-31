@@ -74,13 +74,7 @@ export const HotNumbers: FC = () => {
         <div className="mt-4 mb-20 w-full">
           <h1 className="font-bold small:text-xl">Hot Numbers</h1>
           {data?.length != 0 && data ? (
-            <div className="">
-              <Link
-                to="/create-hot"
-                className="w-full bg-primary py-2 rounded-md text-center text-white font-bold"
-              >
-                Add Hot Number
-              </Link>
+            <div className="flex flex-col gap-2">
               <table className="w-full border border-collapse mt-4">
                 <thead className="text-[10px] rounded-t-md">
                   <tr>
@@ -137,6 +131,12 @@ export const HotNumbers: FC = () => {
                   ))}
                 </tbody>
               </table>
+              <Link
+                to="/create-hot"
+                className="w-full bg-primary py-2 rounded-md text-center text-white font-bold"
+              >
+                Add Hot Number
+              </Link>
             </div>
           ) : (
             <div className="flex flex-col gap-1 m-auto mt-40">

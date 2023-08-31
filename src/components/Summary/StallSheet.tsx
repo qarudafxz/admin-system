@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Navbar } from "../Navbar"
 import { User } from "../../../types"
 import { useFetch } from "../../hooks/useFetch"
@@ -12,12 +12,23 @@ type Agent = {
   value: string
 }
 
+type StallSheet = {
+  agent_id: number
+  bet: string
+  combination: string
+  complete_name: string
+  draw_date: string
+  draw_time: string
+  game_type: string
+}
+
 export const StallSheet: React.FC = () => {
   const token = useGetCreds()
   const [agent, setAgent] = useState<string>("")
   const [date, setDate] = useState<string>("")
   const [gameType, setGameType] = useState<string>("")
   const [drawTime, setDrawTime] = useState<string>("")
+  const [sheet, setSheet] = useState<StallSheet[]>([])
 
   const { data } = useFetch<{ agents: User[] }>(
     import.meta.env.VITE_ADMIN_VIEW_USER
@@ -45,10 +56,16 @@ export const StallSheet: React.FC = () => {
     }).then(async (res) => {
       const data = await res.json()
       if (res.ok || res.status === 200) {
-        console.log(data)
+        setSheet(data.combinations)
       }
     })
   }
+
+  useEffect(() => {
+    if (!token) {
+      window.location.href = "/login"
+    }
+  }, [])
 
   return (
     <div>
@@ -90,7 +107,48 @@ export const StallSheet: React.FC = () => {
           >
             View Stall Sheet
           </button>
-          <div className=""></div>
+          <div className="mt-10 max-h-64 overflow-y-auto">
+            <table className="w-full border border-collapse mt-4 max-h-96 mb-24 overflow-y-auto">
+              <thead className="text-[10px] rounded-t-md">
+                <tr>
+                  <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                    Game Type
+                  </th>
+                  <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                    Agent Name
+                  </th>
+                  <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                    Combination
+                  </th>
+                  <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                    Bet
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-[6px]">
+                {sheet.map((item: any, idx: number) => (
+                  <tr
+                    key={idx}
+                    className={`border-t ${idx % 2 === 1 ? "bg-zinc-300" : ""}`}
+                  >
+                    <td className="flex flex-col px-2 py-2 border border-zinc-400">
+                      {item?.game_type}
+                    </td>
+                    <td className="px-2 py-2 border border-zinc-400">
+                      {item?.complete_name}
+                    </td>
+                    <td className="px-2 py-2 border border-zinc-400">
+                      {item?.combination}
+                    </td>
+
+                    <td className="px-2 py-2 border border-zinc-400">
+                      {item?.bet}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
