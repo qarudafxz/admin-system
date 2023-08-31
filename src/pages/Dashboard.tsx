@@ -7,7 +7,7 @@ import { TotalEarnings } from "../components/TotalEarnings"
 import { useFetch } from "../hooks/useFetch.ts"
 
 //icons
-import { BsFillGrid1X2Fill } from "react-icons/bs"
+import { BsFillGrid1X2Fill, BsFire } from "react-icons/bs"
 import { HiRectangleStack, HiTrophy } from "react-icons/hi2"
 import { BiSolidUserAccount, BiSolidStar } from "react-icons/bi"
 import { MdStickyNote2 } from "react-icons/md"
@@ -142,6 +142,17 @@ export const Dashboard: React.FC = () => {
           >
             <AiOutlineStop className="text-4xl bg-primary p-2 rounded-full text-white shadow-xl" />
             Limits
+          </Link>
+          <Link
+            to="/hot"
+            className={`col-span-3 rounded-md p-2 border border-zinc-400 text-black font-bold text-[10px] ${
+              active
+                ? "flex flex-col gap-2"
+                : "flex flex-row gap-4 items-center"
+            }`}
+          >
+            <BsFire className="text-4xl bg-primary p-2 rounded-full text-white shadow-xl" />
+            Hot Numbers
           </Link>
         </div>
       </div>

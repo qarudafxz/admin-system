@@ -14,6 +14,8 @@ interface ImportMetaEnv {
   readonly VITE_ADMIN_VIEW_HITS: string
   readonly VITE_ADMIN_ADD_LIMIT: string
   readonly VITE_ADMIN_VIEW_LIMIT: string
+  readonly VITE_ADMIN_VIEW_HOTNUMBERS: string
+  readonly VITE_ADMIN_CREATE_HOTNUMBER: string
 }
 
 interface ImportMeta {

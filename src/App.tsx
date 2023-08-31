@@ -23,6 +23,8 @@ import { AddResult } from "./components/Result/AddResult"
 import { Hits } from "./pages/Hits"
 import { Limit } from "./pages/Limit"
 import { CheckLimit } from "./pages/CheckLimit"
+import { HotNumbers } from "./pages/HotNumbers"
+import { CreateHot } from "./pages/CreateHot"
 
 function App() {
   return (
@@ -48,6 +50,8 @@ function App() {
 
                   <Route path="/add-result" element={<AddResult />} />
                   <Route path="/hits" element={<Hits />} />
+                  <Route path="/hot" element={<HotNumbers />} />
+                  <Route path="/create-hot" element={<CreateHot />} />
                   <Route
                     path="/display-user/*"
                     element={

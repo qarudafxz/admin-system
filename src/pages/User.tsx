@@ -49,12 +49,23 @@ export const User: React.FC = () => {
                 {data?.users}
               </h1>
               <div className="flex flex-col">
-                <h1 className={`text-xs ${dark ? "text-white" : "text-black"}`}>
-                  Total Users
+                <h1
+                  className={`text-xs mb-2 ${
+                    dark ? "text-white" : "text-black"
+                  }`}
+                >
+                  Total Active Users
                 </h1>
                 <h1
                   className={`font-bold text-xs bg-primary p-2 rounded-md text-white`}
-                >{`as of ${data?.month}`}</h1>
+                >
+                  as of{" "}
+                  {new Date().toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </h1>
               </div>
               <CgOptions
                 size={30}
