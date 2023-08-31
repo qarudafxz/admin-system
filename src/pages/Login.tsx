@@ -26,41 +26,19 @@ export const Login: React.FC = () => {
   const handleLogin = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
     setProgress(30)
-    try {
-      await fetch(import.meta.env.VITE_ADMIN_LOGIN, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      }).then(async (res) => {
-        if (
-          res.ok &&
-          res.headers.get("Content-Type")?.includes("application/json")
-        ) {
-          const data = await res.json()
+    await fetch(import.meta.env.VITE_ADMIN_LOGIN, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    })
+      .then(async (res) => {
+        const data = await res.json()
 
-          if (!data) {
-            alert("Invalid credentials")
-            return
-          }
-          const credentials: Credential = {
-            username: data.success.username,
-            location: data.success.location,
-          }
-
-          setTimeout(() => {
-            setProgress(100)
-          }, 1000)
-
-          sessionStorage.setItem("admin", JSON.stringify(credentials))
-          sessionStorage.setItem("token", data.token)
-
-          setTimeout(() => {
-            navigate("/dashboard")
-          }, 1500)
-        } else {
-          toast.error("Invalid credentials", {
+        if (!data.success) {
+          toast.error(data.message, {
             position: "top-center",
             autoClose: 2000,
             hideProgressBar: false,
@@ -72,11 +50,29 @@ export const Login: React.FC = () => {
             theme: "light",
           })
           setProgress(100)
+          return
         }
+
+        if (!data) {
+          alert("Invalid credentials")
+          return
+        }
+        const credentials: Credential = {
+          username: data.success.username,
+          location: data.success.location,
+        }
+        setTimeout(() => {
+          setProgress(100)
+        }, 1000)
+        sessionStorage.setItem("admin", JSON.stringify(credentials))
+        sessionStorage.setItem("token", data.token)
+        setTimeout(() => {
+          navigate("/dashboard")
+        }, 1500)
       })
-    } catch (err) {
-      console.error(err)
-    }
+      .catch(async (error) => {
+        console.log(error)
+      })
   }
 
   const passwordInputType = showPassword ? "text" : "password"
