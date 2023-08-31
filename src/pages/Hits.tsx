@@ -46,7 +46,7 @@ export const Hits: React.FC = () => {
       if (res.ok) {
         const data = await res.json()
         setResults(data)
-        setCurrentPage(1) // Reset to first page after fetching new results
+        setCurrentPage(1)
       }
 
       if (!res.ok) {
@@ -97,7 +97,7 @@ export const Hits: React.FC = () => {
         <Navbar />
         <div className="mt-5">
           <h1 className="font-bold small:text-xl">Hits</h1>
-          <p className="text-xs">Select...</p>
+          <p className="text-xs">Select Date</p>
           <input
             type="date"
             onChange={(e) => setDrawDate(e.target.value)}
@@ -139,9 +139,12 @@ export const Hits: React.FC = () => {
                 <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
                   Combination
                 </th>
+                <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
+                  Status
+                </th>
               </tr>
             </thead>
-            <tbody className="text-[10px]">
+            <tbody className="text-[7.5px]">
               {currentItems.map((item: any, idx: number) => (
                 <tr
                   key={idx}
@@ -158,6 +161,13 @@ export const Hits: React.FC = () => {
                   </td>
                   <td className="px-2 py-2 border border-zinc-400">
                     {item?.combination}
+                  </td>
+                  <td
+                    className={`px-2 py-2 border border-zinc-400 font-bold ${
+                      item?.claimed ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    {item?.claimed ? "Claimed" : "Not Claimed"}
                   </td>
                 </tr>
               ))}

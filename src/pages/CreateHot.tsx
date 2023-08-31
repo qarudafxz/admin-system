@@ -1,9 +1,11 @@
-import { FC, useState } from "react"
+import { FC, useState, useEffect } from "react"
 import { Navbar } from "../components/Navbar"
 import { gameOptions, gameTime } from "../helpers/options"
 import { useGetCreds } from "../hooks/useGetCreds"
 import Dropdown from "react-dropdown"
 import "react-dropdown/style.css"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export const CreateHot: FC = () => {
   const TOKEN = useGetCreds()
@@ -15,7 +17,6 @@ export const CreateHot: FC = () => {
   const addHot = (e: React.FormEvent) => {
     e.preventDefault()
     setHotNums([...hotNums, hot])
-    console.log(hotNums)
   }
 
   const handleDelete = (e: React.FormEvent, idx: number) => {
@@ -28,6 +29,10 @@ export const CreateHot: FC = () => {
   const handleAddHot = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
 
+    const nums: Array<number> = [...hotNums]
+    nums.shift()
+    nums.push(hot)
+
     try {
       await fetch(import.meta.env.VITE_ADMIN_CREATE_HOTNUMBER, {
         method: "POST",
@@ -38,15 +43,31 @@ export const CreateHot: FC = () => {
         body: JSON.stringify({
           game_type: gameType,
           draw_time: time,
-          hot_numbers: hotNums,
+          hot_numbers: JSON.stringify([...nums]),
         }),
       }).then(async (res) => {
         if (!res.ok || res.status === 400) {
+          toast.error("Something went wrong. Please try again later", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+          })
           throw new Error("Something went wrong")
         }
 
         const data = await res.json()
-        console.log(data)
+        toast.success(data.message, {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+        })
+        setTimeout(() => {
+          window.location.href = "/hot"
+        }, 1800)
       })
     } catch (err) {
       throw new Error("Something went wrong")
@@ -55,6 +76,7 @@ export const CreateHot: FC = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="small:mx-small medium:mx-medium large:mx-large">
         <Navbar />
         <div className="mt-4 mb-20 w-full">
@@ -64,27 +86,27 @@ export const CreateHot: FC = () => {
               options={gameOptions}
               placeholder="Select Game Type"
               onChange={(gameOptions) => setGameType(gameOptions?.value)}
-              className="text-xs"
+              className="text-xs  w-full"
             />
             <Dropdown
               options={gameTime}
               placeholder="Select Time"
               onChange={(gameTime) => setTime(gameTime?.value)}
-              className="text-xs"
+              className="text-xs w-full"
             />
           </div>
           <button
             onClick={(e) => addHot(e)}
-            className="bg-primary font-bold text-white py-2 w-full"
+            className="border border-primary font-bold text-primary py-2 w-full mt-4"
           >
             New Hot Number
           </button>
-          <div className="flex flex-col gap-2 mt-4">
+          <div className="flex flex-col gap-2 mt-4 max-h-[320px] overflow-y-auto w-full">
             {hotNums.map((_, idx) => {
               return (
-                <div className="flex items-center" key={idx}>
+                <div className="flex items-center w-full gap-2" key={idx}>
                   <input
-                    className="border border-zinc-400 py-2 pl-1 focus:outline-none"
+                    className="border border-zinc-400 w-9/12 py-2 pl-1 focus:outline-none"
                     onChange={(e) => setHot(parseInt(e.target.value))}
                     type="number"
                     key={idx}
@@ -101,7 +123,7 @@ export const CreateHot: FC = () => {
           </div>
           <button
             onClick={(e) => handleAddHot(e)}
-            className="bg-primary font-bold text-white py-2 w-full"
+            className="bg-primary font-bold text-white py-2 w-72 fixed bottom-20 "
           >
             Add Hot Numbers
           </button>

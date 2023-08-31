@@ -88,7 +88,7 @@ export const HotNumbers: FC = () => {
                       Draw Time
                     </th>
                     <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
-                      Limit
+                      Number
                     </th>
                     <th className="px-2 py-2 border border-zinc-400 bg-primary text-white">
                       Option
@@ -117,7 +117,7 @@ export const HotNumbers: FC = () => {
                         {item?.draw_time}
                       </td>
                       <td className="px-2 py-2 border border-zinc-400">
-                        {item?.limit}
+                        {item?.hot_number}
                       </td>
                       <td className="px-2 py-2 border border-zinc-400">
                         <button

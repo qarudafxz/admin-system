@@ -25,6 +25,7 @@ import { Limit } from "./pages/Limit"
 import { CheckLimit } from "./pages/CheckLimit"
 import { HotNumbers } from "./pages/HotNumbers"
 import { CreateHot } from "./pages/CreateHot"
+import { UserSettings } from "./pages/UserSettings"
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
                   <Route path="/hits" element={<Hits />} />
                   <Route path="/hot" element={<HotNumbers />} />
                   <Route path="/create-hot" element={<CreateHot />} />
+                  <Route path="/settings" element={<UserSettings />} />
                   <Route
                     path="/display-user/*"
                     element={

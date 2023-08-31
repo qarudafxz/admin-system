@@ -11,5 +11,5 @@ export const deleteLim = (id: number): string => {
 }
 
 export const deleteHotNum = (id: number): string => {
-  return `http://admin-theme.test/api/Admin/HotNumbers/${id}`
+  return `https://adminstl.up.railway.app/api/Admin/HotNumbers/${id}`
 }

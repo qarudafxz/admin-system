@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 
 import { getUsername } from "../helpers/getUsername.ts"
@@ -82,7 +83,10 @@ export const Navbar: React.FC = () => {
           Hello <span className="font-semibold">{username},</span>
         </h1>
       </div>
-      <VscSettings className="text-3xl bg-dark text-white p-2 rounded-md" />
+      <Link to="/settings">
+        {" "}
+        <VscSettings className="text-3xl bg-dark text-white p-2 rounded-md" />
+      </Link>
     </div>
   )
 }

@@ -29,6 +29,7 @@ export const StallSheet: React.FC = () => {
   const [gameType, setGameType] = useState<string>("")
   const [drawTime, setDrawTime] = useState<string>("")
   const [sheet, setSheet] = useState<StallSheet[]>([])
+  const [total, setTotal] = useState<number>(0)
 
   const { data } = useFetch<{ agents: User[] }>(
     import.meta.env.VITE_ADMIN_VIEW_USER
@@ -57,6 +58,13 @@ export const StallSheet: React.FC = () => {
       const data = await res.json()
       if (res.ok || res.status === 200) {
         setSheet(data.combinations)
+
+        let total = 0
+        data.combinations.forEach((item: any) => {
+          total += parseInt(item.bet)
+        })
+
+        setTotal(total)
       }
     })
   }
@@ -142,12 +150,15 @@ export const StallSheet: React.FC = () => {
                     </td>
 
                     <td className="px-2 py-2 border border-zinc-400">
-                      {item?.bet}
+                      ₱{item?.bet}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            <h1 className="text-right font-bold -mt-20">
+              Total: ₱{total.toFixed(2)}
+            </h1>
           </div>
         </div>
       </div>
