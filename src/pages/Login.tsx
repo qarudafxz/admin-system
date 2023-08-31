@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Logo from "../assets/logo.png"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 import TopLoadingBar from "react-top-loading-bar"
 
@@ -24,34 +26,57 @@ export const Login: React.FC = () => {
   const handleLogin = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
     setProgress(30)
-    const response = await fetch(import.meta.env.VITE_ADMIN_LOGIN, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    })
+    try {
+      await fetch(import.meta.env.VITE_ADMIN_LOGIN, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      }).then(async (res) => {
+        if (
+          res.ok &&
+          res.headers.get("Content-Type")?.includes("application/json")
+        ) {
+          const data = await res.json()
 
-    const data = await response.json()
+          if (!data) {
+            alert("Invalid credentials")
+            return
+          }
+          const credentials: Credential = {
+            username: data.success.username,
+            location: data.success.location,
+          }
 
-    if (!data) {
-      alert("Invalid credentials")
-      return
+          setTimeout(() => {
+            setProgress(100)
+          }, 1000)
+
+          sessionStorage.setItem("admin", JSON.stringify(credentials))
+          sessionStorage.setItem("token", data.token)
+
+          setTimeout(() => {
+            navigate("/dashboard")
+          }, 1500)
+        } else {
+          toast.error("Invalid credentials", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            theme: "light",
+          })
+          setProgress(100)
+        }
+      })
+    } catch (err) {
+      console.error(err)
     }
-    const credentials: Credential = {
-      username: data.success.username,
-      location: data.success.location,
-    }
-    setTimeout(() => {
-      setProgress(100)
-    }, 1000)
-
-    sessionStorage.setItem("admin", JSON.stringify(credentials))
-    sessionStorage.setItem("token", data.token)
-
-    setTimeout(() => {
-      navigate("/dashboard")
-    }, 1500)
   }
 
   const passwordInputType = showPassword ? "text" : "password"
@@ -77,6 +102,7 @@ export const Login: React.FC = () => {
         onLoaderFinished={() => setProgress(0)}
         height={8}
       />
+      <ToastContainer />
       <form className="grid grid-cols place-items-center my-20">
         <img src={Logo} alt="Logo" className="small:w-20 h-20" />
         <h1 className="font-extrabold text-center mt-4">
