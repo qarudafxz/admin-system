@@ -96,39 +96,43 @@ export const HotNumbers: FC = () => {
                   </tr>
                 </thead>
                 <tbody className="text-[10px]">
-                  {data?.map((item: any, idx: number) => (
-                    <tr
-                      key={idx}
-                      className={`border-t ${
-                        idx % 2 === 1 ? "bg-zinc-300" : ""
-                      }`}
-                    >
-                      <td className="px-2 py-2 border border-zinc-400">
-                        {item?.game_type}
-                      </td>
-                      <td className="px-2 py-2 border border-zinc-400">
-                        {new Date(item?.draw_date).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </td>
-                      <td className="px-2 py-2 border border-zinc-400">
-                        {item?.draw_time}
-                      </td>
-                      <td className="px-2 py-2 border border-zinc-400">
-                        {item?.hot_number}
-                      </td>
-                      <td className="px-2 py-2 border border-zinc-400">
-                        <button
-                          onClick={() => handleDelete(item?.id)}
-                          className="bg-red-600 px-2 py-1 rounded-full text-white"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {Array.isArray(data) &&
+                    data?.map((item: any, idx: number) => (
+                      <tr
+                        key={idx}
+                        className={`border-t ${
+                          idx % 2 === 1 ? "bg-zinc-300" : ""
+                        }`}
+                      >
+                        <td className="px-2 py-2 border border-zinc-400">
+                          {item?.game_type}
+                        </td>
+                        <td className="px-2 py-2 border border-zinc-400">
+                          {new Date(item?.draw_date).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
+                        </td>
+                        <td className="px-2 py-2 border border-zinc-400">
+                          {item?.draw_time}
+                        </td>
+                        <td className="px-2 py-2 border border-zinc-400">
+                          {item?.hot_number}
+                        </td>
+                        <td className="px-2 py-2 border border-zinc-400">
+                          <button
+                            onClick={() => handleDelete(item?.id)}
+                            className="bg-red-600 px-2 py-1 rounded-full text-white"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
               <Link
