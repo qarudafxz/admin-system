@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react"
+import { FC, useState } from "react"
 import { Navbar } from "../components/Navbar"
 import { gameOptions, gameTime } from "../helpers/options"
 import { useGetCreds } from "../hooks/useGetCreds"

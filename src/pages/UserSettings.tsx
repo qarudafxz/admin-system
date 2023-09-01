@@ -13,8 +13,6 @@ type User = {
 }
 
 export const UserSettings: FC = () => {
-  const { data } = useFetch<User[]>(import.meta.env.VITE_ADMIN_GET_PROFILE)
-
   return (
     <div className="bg-primary w-full h-screen">
       <div className="grid place-content-center py-10">
