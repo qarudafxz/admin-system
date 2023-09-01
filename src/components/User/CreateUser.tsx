@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import { FC, useState } from "react"
 import { Navbar } from "../Navbar"
+import { useNavigate } from "react-router-dom"
 
 import { useGetCreds } from "../../hooks/useGetCreds.ts"
 
@@ -14,85 +15,116 @@ type Options = {
   label: string
 }
 
-export const CreateUser: React.FC = () => {
+type Locations = {
+  value: string
+  label: string
+}
+
+export const CreateUser: FC = () => {
+  const navigate = useNavigate()
   const token = useGetCreds()
   const [firstName, setFirstName] = useState<string>("")
   const [middleName, setMiddleName] = useState<string>("")
   const [lastName, setLastName] = useState<string>("")
   const [username, setUsername] = useState<string>("")
-  const [role, setRole] = useState<string>("")
+  const [role, setRole] = useState<string>()
   const [area, setArea] = useState<string>("")
   const [location, setLocation] = useState<string>("")
   const [phoneNumber, setPhoneNumber] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [confirmPassword, setConfirmPassword] = useState<string>("")
 
-  const options: Array<Options> = [
+  const roles: Array<Options> = [
     {
-      value: "admin",
+      value: "true",
       label: "Admin",
     },
     {
-      value: "agent",
+      value: "false",
       label: "Agent",
     },
   ]
 
-  const optionsLocation: Array<Options> = [
+  const locations: Array<Locations> = [
     {
       value: "Butuan City",
       label: "Butuan City",
     },
   ]
 
-  const handleCreateUser = async () => {
-    //format full name
-    const fullName =
-      middleName != ""
-        ? `${firstName} ${middleName} ${lastName}`
-        : `${firstName} ${lastName}`
+  const handleCreateUser = async (e: React.FormEvent) => {
+    e.preventDefault()
 
-    if (password != confirmPassword) {
-      toast.error("Password doesn't match!")
+    if (password !== confirmPassword) {
+      toast.error("Password doesn't match!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        rtl: false,
+        pauseOnFocusLoss: true,
+        draggable: true,
+        pauseOnHover: true,
+        theme: "light",
+      })
+
       return
     }
 
-    if (password.length < 8) {
-      toast.error("Password must be 8 characters long")
-      return
-    }
-
-    try {
-      await fetch(import.meta.env.VITE_ADMIN_CREATE_USER, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          complete_name: fullName,
-          username,
-          password,
-          phone_number: phoneNumber,
-          area_name: area,
-          location,
-          role,
-        }),
-      }).then(async (res) => {
+    await fetch(import.meta.env.VITE_ADMIN_CREATE_USER, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        complete_name: middleName
+          ? firstName.concat(" ", middleName, " ", lastName)
+          : firstName.concat(" ", lastName),
+        username: username,
+        password: password,
+        phone_number: phoneNumber,
+        area_name: area,
+        location: location,
+        isAdmin: role === "true" ? true : false,
+      }),
+    })
+      .then(async (res) => {
         const data = await res.json()
-        console.log(data)
-        if (res.ok || res.status == 200) {
-          toast.success(
-            `${role.charAt(0).toUpperCase() + role.slice(1)} successfully added`
-          )
+        if (data.error || res.status >= 400) {
+          toast.error(data.error, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            theme: "light",
+          })
           return
         }
 
-        toast.error("Something went wrong")
+        toast.success("Successfully Added ", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        })
+        setTimeout(() => {
+          navigate(`/display-user/${role ? "admins" : "agents"}`)
+        }, 2000)
       })
-    } catch (err) {
-      console.error(err)
-    }
+      .catch(async (err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -103,21 +135,25 @@ export const CreateUser: React.FC = () => {
         <form className="mt-5 mb-28">
           <h1 className="font-bold small:text-xl">Create User</h1>
           <div className="flex flex-col gap-2 mt-4">
-            <label className="small:text-xs">FIRST NAME</label>
+            <label className="small:text-xs">First Name</label>
             <input
               type="text"
               required
               onChange={(e) => setFirstName(e.target.value)}
               className="border text-xs border-zinc-400 p-2 focus:outline-none"
             />
-            <label className="small:text-xs">MIDDLE NAME</label>
+          </div>
+          <div className="flex flex-col gap-2 mt-4">
+            <label className="small:text-xs">Middle Name</label>
             <input
               type="text"
-              placeholder="Optional"
+              required
               onChange={(e) => setMiddleName(e.target.value)}
               className="border text-xs border-zinc-400 p-2 focus:outline-none"
             />
-            <label className="small:text-xs">LAST NAME</label>
+          </div>
+          <div className="flex flex-col gap-2 mt-4">
+            <label className="small:text-xs">Last Name</label>
             <input
               type="text"
               required
@@ -173,15 +209,15 @@ export const CreateUser: React.FC = () => {
             />
           </div>
           <Dropdown
-            options={optionsLocation}
+            options={locations}
             placeholder="Select Location"
-            onChange={(optionsLocation) => setLocation(optionsLocation?.value)}
+            onChange={(locations) => setLocation(locations?.value)}
             className="text-xs border-zinc-400 focus:outline-none mt-4"
           />
           <Dropdown
-            options={options}
+            options={roles}
             placeholder="Select Role"
-            onChange={(options) => setRole(options?.value)}
+            onChange={(roles) => setRole(roles?.value)}
             className="text-xs border-zinc-400 focus:outline-none mt-4"
           />
           <button
