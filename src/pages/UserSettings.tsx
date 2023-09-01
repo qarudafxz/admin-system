@@ -1,16 +1,15 @@
 import { FC } from "react"
-import { useFetch } from "../hooks/useFetch"
 
-type User = {
-  first_name: string
-  middle_name: string
-  last_name: string
-  username: string
-  area_name: string
-  location: string
-  phone_number: string
-  password: string
-}
+// type User = {
+//   first_name: string
+//   middle_name: string
+//   last_name: string
+//   username: string
+//   area_name: string
+//   location: string
+//   phone_number: string
+//   password: string
+// }
 
 export const UserSettings: FC = () => {
   return (
